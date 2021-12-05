@@ -1,6 +1,6 @@
 const Task = require('./task.model');
 
-const tasks = [];
+let tasks = [];
 
 const getAll = async () => tasks;
 const getByIDAndBoardID = async (taskId, boardId) => tasks.find((task) => task.id === taskId && task.boardId === boardId);
@@ -46,10 +46,14 @@ const deleteAllByBoardId =  (boardId) => {
 }
 
 const setUserIdToNull =  (userId) => {
-    tasks.forEach((task) => {
+    tasks = tasks.map((task) => {
         if(task.userId === userId) {
-            task.userId = null;
+            return {
+                ...task,
+                userId: null
+            };
         }
+        return task;
     })
 }
 
