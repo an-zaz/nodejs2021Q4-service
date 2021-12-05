@@ -3,7 +3,7 @@ const app = require('./app');
 
 const _PORT = PORT || 4000;
 
-app.listen(PORT,'localhost', (e) => {
+app.listen(_PORT,'localhost', (e) => {
 if (e){
     console.log(e)
 } else {
