@@ -13,11 +13,6 @@ router.get('/',  async(ctx, next) => {
 
 router.get('/:boardId', async(ctx, next) => {
     const board = await boardsService.getByID(ctx.params.boardId);
-    // if (!uuid.validate(ctx.params.boardId)){
-    //     ctx.status = 401;
-    //     ctx.body = 'Access token is missing or invalid';
-    //     return;
-    // }
     if (!board){
         ctx.status = 404;
         ctx.body = { message: 'Board not found' };
@@ -46,11 +41,6 @@ router.post('/', async (ctx, next) => {
 });
 
 router.put('/:boardId', async (ctx, next) => {
-    // if (  !uuid.validate(ctx.params.boardId)) {
-    //     ctx.status = 400;
-    //     ctx.body = '';
-    //     return;
-    // }
     if (
         !ctx.request.body.title ||
         !ctx.request.body.columns
@@ -75,11 +65,11 @@ router.put('/:boardId', async (ctx, next) => {
 });
 
 router.delete('/:boardId', async (ctx, next) => {
-    // if (  !uuid.validate(ctx.params.boardId)) {
-    //     ctx.status = 400;
-    //     ctx.body = ';
-    //     return;
-    // }
+    if (!ctx.params.boardId) {
+        ctx.status = 404;
+        ctx.body = { message: 'Board not found' };
+        return;
+    }
     await boardsService.deleteById(ctx.params.boardId);
     ctx.status = 204;
     next();

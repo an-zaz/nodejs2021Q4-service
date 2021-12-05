@@ -14,11 +14,6 @@ router.get('/',  async(ctx, next) => {
 
 router.get('/:userId', async(ctx, next) => {
     const user = await usersService.getByID(ctx.params.userId);
-    // if (!uuid.validate(ctx.params.userId)){
-    //     ctx.status = 401;
-    //     ctx.body = 'Access token is missing or invalid';
-    //     return;
-    // }
     if (!user){
         ctx.status = 404;
         ctx.body = { message: 'User not found' };
@@ -48,11 +43,6 @@ router.post('/', async (ctx, next) => {
 });
 
 router.put('/:userId', async (ctx, next) => {
-    // if (  !uuid.validate(ctx.params.userId)) {
-    //     ctx.status = 400;
-    //     ctx.body = '';
-    //     return;
-    // }
     if (
         !ctx.request.body.name
     ) {
@@ -77,11 +67,11 @@ router.put('/:userId', async (ctx, next) => {
 });
 
 router.delete('/:userId', async (ctx, next) => {
-    // if (  !uuid.validate(ctx.params.userId)) {
-    //     ctx.status = 400;
-    //     ctx.body = ';
-    //     return;
-    // }
+    if (!ctx.params.userId) {
+        ctx.status = 404;
+        ctx.body = { message: 'User not found' };
+        return;
+    }
     await usersService.deleteById(ctx.params.userId);
     ctx.status = 204;
     next();
