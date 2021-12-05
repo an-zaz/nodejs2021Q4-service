@@ -9,13 +9,12 @@ router.get('/',  async(ctx, next) => {
     const users = await usersService.getAll();
     ctx.body = users.map((user) => user.toResponse());
     ctx.status = 200;
-    // ctx.body.json(users.length ? users.map((user)=> user.toResponse()) : users);
     next();
 });
 
-router.get('/:id', async(ctx, next) => {
-    const user = await usersService.getByID(ctx.params.id);
-    // if (!uuid.validate(ctx.params.id)){
+router.get('/:userId', async(ctx, next) => {
+    const user = await usersService.getByID(ctx.params.userId);
+    // if (!uuid.validate(ctx.params.userId)){
     //     ctx.status = 401;
     //     ctx.body = 'Access token is missing or invalid';
     //     return;
@@ -48,8 +47,8 @@ router.post('/', async (ctx, next) => {
     next();
 });
 
-router.put('/:id', async (ctx, next) => {
-    // if ( !ctx.request.body.id || !uuid.validate(ctx.params.id)) {
+router.put('/:userId', async (ctx, next) => {
+    // if (  !uuid.validate(ctx.params.userId)) {
     //     ctx.status = 400;
     //     ctx.body = '';
     //     return;
@@ -62,7 +61,7 @@ router.put('/:id', async (ctx, next) => {
         return;
     }
     const updatedUser = await usersService.updateById(
-        ctx.params.id,
+        ctx.params.userId,
         ctx.request.body.name,
         ctx.request.body.login,
         ctx.request.body.password
@@ -77,13 +76,13 @@ router.put('/:id', async (ctx, next) => {
     next();
 });
 
-router.delete('/:id', async (ctx, next) => {
-    // if (  !uuid.validate(ctx.params.id)) {
+router.delete('/:userId', async (ctx, next) => {
+    // if (  !uuid.validate(ctx.params.userId)) {
     //     ctx.status = 400;
     //     ctx.body = ';
     //     return;
     // }
-    await usersService.deleteById(ctx.request.body.id);
+    await usersService.deleteById(ctx.params.userId);
     ctx.status = 204;
     next();
 });

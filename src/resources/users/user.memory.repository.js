@@ -18,9 +18,7 @@ const updateById = async (id, name, login, password) => {
     if (!user) {
         return null
     }
-    if (name) {
-        user.name = name;
-    }
+    user.name = name;
     if (login) {
         user.login = login;
     }
