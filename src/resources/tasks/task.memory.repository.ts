@@ -58,7 +58,7 @@ const deleteById = async (taskId: string, boardId: string) => {
   }
   tasks.splice(tasks.indexOf(task), 1);
 };
-const deleteAllByBoardId = (boardId: string) => {
+const deleteAllByBoardId = async (boardId: string) => {
   const tasksForDelete = tasks.filter((task) => task.boardId === boardId);
   if (!tasksForDelete.length) {
     return;
@@ -66,7 +66,7 @@ const deleteAllByBoardId = (boardId: string) => {
   tasksForDelete.forEach((task) => tasks.splice(tasks.indexOf(task), 1));
 };
 
-const setUserIdToNull = (userId: string) => {
+const setUserIdToNull = async (userId: string) => {
   tasks.forEach((task) => {
     if (task.userId === userId) {
       task.setUserId(null);

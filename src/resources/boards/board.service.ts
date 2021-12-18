@@ -7,9 +7,9 @@ const create = (title: string, columns: Array<string>) =>
   boardsRepo.create(title, columns);
 const updateById = (id: string, title: string, columns: Array<string>) =>
   boardsRepo.updateById(id, title, columns);
-const deleteById = (id: string) => {
-  boardsRepo.deleteById(id);
-  tasksRepo.deleteAllByBoardId(id);
+const deleteById = async (id: string) => {
+  await boardsRepo.deleteById(id);
+  await tasksRepo.deleteAllByBoardId(id);
 };
 
 export default { getAll, getByID, create, updateById, deleteById };

@@ -1,6 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IUser } from '../../interfaces';
 
+/**
+ * Represents a user in memory (in kind of User[]) - creates a user with id, login, name, password string properties
+ * @param object - with name, login, password string properties
+ * @returns object instance (user) with id, login, name, password string properties
+ */
 class User {
   id: string;
   name: string;
@@ -17,7 +22,10 @@ class User {
     this.login = login;
     this.password = password;
   }
-
+  /**
+   * Returns a user without its password
+   * @returns user - user object without password property (IUser without 'password')
+   */
   toResponse(): Omit<IUser, 'password'> {
     const { id, name, login } = this;
     return { id, name, login };
