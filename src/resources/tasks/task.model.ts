@@ -4,7 +4,7 @@ import { ITask } from '../../interfaces';
 /**
  * Represents a task in memory (in kind of Task[]) - creates a task with generated id
  * @param object - with title, order, description, userId, boardId, columnId string properties
- * @returns object instance (task) with id, title, order, description, userId, boardId, columnId string properties
+ * @returns object instance (task) with id, title, order, description, boardId, columnId string and userId string or null properties
  */
 class Task {
   id: string;

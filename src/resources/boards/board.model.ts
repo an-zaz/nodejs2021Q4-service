@@ -1,6 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IBoard } from '../../interfaces';
 
+/**
+ * Represents a board in memory (in kind of Board[]) - creates a board with generated id
+ * @param object - with title string and columns string[] properties
+ * @returns object instance (board) with id, title string and columns string[] properties
+ */
 class Board {
   id: string;
   title: string;

@@ -48,7 +48,7 @@ const create = async (
   return task;
 };
 /**
- * Find task by board and task ids and updates it by other parameters passed
+ * Finds task by board and task ids and updates it by other parameters passed
  * @param taskId - task's id (string)
  * @param title - task's title (string)
  * @param order - task's order (string)

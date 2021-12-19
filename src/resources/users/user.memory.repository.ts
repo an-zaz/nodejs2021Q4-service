@@ -35,7 +35,7 @@ const create = async (
   return user;
 };
 /**
- * Find user by id and updates it by other parameters passed
+ * Finds user by id and updates it by other parameters passed
  * @param id - user's id (string)
  * @param name - user's name (string)
  * @param login - user's login (string)
