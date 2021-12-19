@@ -62,7 +62,7 @@ const updateById = async (
   return user;
 };
 /**
- * Deletes user with a specific id from memory
+ * Deletes user with a specific id from memory if found
  * @param id - user's id (string)
  * @returns promise of void - no return value
  */

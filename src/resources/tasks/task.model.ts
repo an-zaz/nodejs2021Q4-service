@@ -1,6 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ITask } from '../../interfaces';
 
+/**
+ * Represents a task in memory (in kind of Task[]) - creates a task with generated id
+ * @param object - with title, order, description, userId, boardId, columnId string properties
+ * @returns object instance (task) with id, title, order, description, userId, boardId, columnId string properties
+ */
 class Task {
   id: string;
   title: string;
@@ -26,11 +31,17 @@ class Task {
     this.columnId = columnId;
     this.description = description;
   }
-
+  /**
+   * Sets userId property to task
+   * @param userId - user's id property in Task instance (string | null)
+   */
   setUserId(userId: string | null) {
     this.userId = userId;
   }
-
+  /**
+   * Returns a task (Task instance)
+   * @returns task - task object (ITask)
+   */
   toResponse(): ITask {
     const { id, title, order, description, userId, boardId, columnId } = this;
     return { id, title, order, description, userId, boardId, columnId };

@@ -36,7 +36,7 @@ const updateById = (
   password: string
 ) => usersRepo.updateById(id, name, login, password);
 /**
- * Deletes user with a specific id from memory and set its tasks userId to null
+ * Deletes user with a specific id from memory and set its tasks' userId to null
  * @param id - user's id (string)
  * @returns promise of void - no return value
  */
