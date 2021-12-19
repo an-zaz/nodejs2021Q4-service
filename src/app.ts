@@ -1,21 +1,27 @@
 import Koa from 'koa';
 import koaBody from 'koa-body';
-// const swaggerUI = require('swagger-ui-express');
-// const path = require('path');
-// const YAML = require('yamljs');
+import { koaSwagger } from 'koa2-swagger-ui';
+import path from 'path';
+import YAML from 'yamljs';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
+import Router from 'koa-router';
 
 const app = new Koa();
-// const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
+const router = new Router();
+const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
-// app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+router.get(
+  '/doc',
+  koaSwagger({ routePrefix: false, swaggerOptions: { spec: swaggerDocument } })
+);
 
 app.use(koaBody());
 
 app.use(userRouter.routes());
 app.use(boardRouter.routes());
 app.use(taskRouter.routes());
+app.use(router.routes());
 
 export default app;
