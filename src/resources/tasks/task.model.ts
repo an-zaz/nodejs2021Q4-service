@@ -7,7 +7,7 @@ import { ITask } from '../../interfaces';
  * @returns object instance (task) with id, title, order, description, boardId, columnId string and userId string or null properties
  */
 class Task {
-  id: string;
+  readonly id: string;
   title: string;
   order: string;
   description: string;

@@ -7,7 +7,7 @@ import { IBoard } from '../../interfaces';
  * @returns object instance (board) with id, title string and columns string[] properties
  */
 class Board {
-  id: string;
+  readonly id: string;
   title: string;
   columns: Array<string>;
 

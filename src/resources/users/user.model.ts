@@ -7,7 +7,7 @@ import { IUser } from '../../interfaces';
  * @returns object instance (user) with id, login, name, password string properties
  */
 class User {
-  id: string;
+  readonly id: string;
   name: string;
   login: string;
   password: string;
