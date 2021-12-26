@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import boardsService from './board.service';
+import { Exception } from '../../common/exception';
 
 const router = new Router({
   prefix: '/boards',
@@ -14,9 +15,7 @@ router.get('/', async (ctx, next) => {
 router.get('/:boardId', async (ctx, next) => {
   const board = await boardsService.getByID(ctx.params.boardId);
   if (!board) {
-    ctx.status = 404;
-    ctx.body = { message: 'Board not found' };
-    return;
+    throw new Exception('Board not found', 404);
   }
   ctx.status = 200;
   ctx.body = board;
@@ -25,9 +24,7 @@ router.get('/:boardId', async (ctx, next) => {
 
 router.post('/', async (ctx, next) => {
   if (!ctx.request.body.title || !ctx.request.body.columns) {
-    ctx.status = 400;
-    ctx.body = { message: 'Title or/and column field(s) was/were not found' };
-    return;
+    throw new Exception('Title or/and column field(s) was/were not found', 400);
   }
   ctx.body = await boardsService.create(
     ctx.request.body.title,
@@ -39,9 +36,7 @@ router.post('/', async (ctx, next) => {
 
 router.put('/:boardId', async (ctx, next) => {
   if (!ctx.request.body.title || !ctx.request.body.columns) {
-    ctx.status = 400;
-    ctx.body = { message: 'Title or/and column field(s) was/were not found' };
-    return;
+    throw new Exception('Title or/and column field(s) was/were not found', 400);
   }
   const updatedBoard = await boardsService.updateById(
     ctx.params.boardId,
