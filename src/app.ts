@@ -67,7 +67,7 @@ app.use(router.routes());
 
 process.on('uncaughtException', (err, origin) => {
   logger.error(`Caught exception: ${err}\n` + `Exception origin: ${origin}`);
-  process.exit(1);
+  setTimeout(() => process.exit(1), 1000);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
