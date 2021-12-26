@@ -8,6 +8,7 @@ import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import Router from 'koa-router';
 import { finished } from 'stream';
+import process from 'process';
 
 const app = new Koa();
 const router = new Router();
@@ -41,6 +42,19 @@ app.use(userRouter.routes());
 app.use(boardRouter.routes());
 app.use(taskRouter.routes());
 app.use(router.routes());
+
+process.on('uncaughtException', (err, origin) => {
+  console.error(`Caught exception: ${err}\n` + `Exception origin: ${origin}`);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtExceptionMonitor', (err, origin) => {
+  console.error(err, origin);
+});
+
 
 export default app;
 
