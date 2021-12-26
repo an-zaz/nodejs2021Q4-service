@@ -7,9 +7,9 @@
   },
   "type": "commonjs",
   "description": "REST service starter for RS School",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "nodemon src/server.ts",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
@@ -50,11 +50,20 @@
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-router": "^10.1.1",
-    "swagger-ui-express": "4.1.6",
+    "koa2-swagger-ui": "^5.3.0",
+    "ts-node": "^10.4.0",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@microsoft/tsdoc": "^0.13.2",
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.4",
+    "@types/koa-router": "^7.4.4",
+    "@types/uuid": "^8.3.3",
+    "@types/yamljs": "^0.2.31",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
     "chai": "4.3.4",
     "debug": "4.3.2",
     "dirty-chai": "2.0.1",
@@ -64,11 +73,13 @@
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^4.3.8",
     "jest": "27.3.1",
     "lint-staged": "12.0.3",
     "nodemon": "2.0.15",
     "prettier": "2.4.1",
-    "supertest": "6.1.6"
+    "supertest": "6.1.6",
+    "typescript": "^4.5.3"
   }
 }
