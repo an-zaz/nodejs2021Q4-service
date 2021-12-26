@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import usersService from './user.service';
+import { Exception } from '../../common/exception';
 
 const router = new Router({
   prefix: '/users',
@@ -15,9 +16,7 @@ router.get('/', async (ctx, next) => {
 router.get('/:userId', async (ctx, next) => {
   const user = await usersService.getByID(ctx.params.userId);
   if (!user) {
-    ctx.status = 404;
-    ctx.body = { message: 'User not found' };
-    return;
+    throw new Exception('User was not found', 404);
   }
   ctx.status = 200;
   ctx.body = user;
@@ -26,9 +25,7 @@ router.get('/:userId', async (ctx, next) => {
 
 router.post('/', async (ctx, next) => {
   if (!ctx.request.body.name) {
-    ctx.status = 400;
-    ctx.body = { message: 'Name field was not found' };
-    return;
+    throw new Exception('Name field was not found', 400);
   }
   const createdUser = await usersService.create(
     ctx.request.body.name,
@@ -42,9 +39,7 @@ router.post('/', async (ctx, next) => {
 
 router.put('/:userId', async (ctx, next) => {
   if (!ctx.request.body.name) {
-    ctx.status = 400;
-    ctx.body = { message: 'Name field was not found' };
-    return;
+    throw new Exception('Name field was not found', 400);
   }
   const updatedUser = await usersService.updateById(
     ctx.params.userId,
@@ -53,9 +48,7 @@ router.put('/:userId', async (ctx, next) => {
     ctx.request.body.password
   );
   if (!updatedUser) {
-    ctx.status = 404;
-    ctx.body = { message: 'User was not found' };
-    return;
+    throw new Exception('User was not found', 404);
   }
   ctx.body = updatedUser.toResponse();
   ctx.status = 200;
@@ -64,9 +57,7 @@ router.put('/:userId', async (ctx, next) => {
 
 router.delete('/:userId', async (ctx, next) => {
   if (!ctx.params.userId) {
-    ctx.status = 404;
-    ctx.body = { message: 'User not found' };
-    return;
+    throw new Exception('User was not found', 404);
   }
   await usersService.deleteById(ctx.params.userId);
   ctx.status = 204;

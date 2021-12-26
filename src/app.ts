@@ -9,7 +9,6 @@ import taskRouter from './resources/tasks/task.router';
 import Router from 'koa-router';
 import { finished } from 'stream';
 import process from 'process';
-import * as http from 'http';
 import { logger } from './common/logger';
 import { Exception } from './common/exception';
 
@@ -47,11 +46,8 @@ app.use(async (ctx, next) => {
   finished(ctx.res, () => {
     const { status, body } = ctx.response;
     logger.info(
-      `METHOD: ${method}
-       URL: ${url}
-       QUERY: ${querystring || 'no query'}
-       BODY REQUEST: ${JSON.stringify(bodyReQ)}
-       STATUS: ${status}
+      `METHOD: ${method} URL: ${url} QUERY: ${querystring || 'no query'}
+       BODY REQUEST: ${JSON.stringify(bodyReQ)} STATUS: ${status} 
        BODY RESPONSE: ${JSON.stringify(body)} `
     );
   });
@@ -68,7 +64,6 @@ app.use(userRouter.routes());
 app.use(boardRouter.routes());
 app.use(taskRouter.routes());
 app.use(router.routes());
-
 
 process.on('uncaughtException', (err, origin) => {
   logger.error(`Caught exception: ${err}\n` + `Exception origin: ${origin}`);

@@ -44,9 +44,7 @@ router.put('/:boardId', async (ctx, next) => {
     ctx.request.body.columns
   );
   if (!updatedBoard) {
-    ctx.status = 404;
-    ctx.body = { message: 'Board was not found' };
-    return;
+    throw new Exception('Board was not found', 404);
   }
   ctx.body = updatedBoard;
   ctx.status = 200;
@@ -55,9 +53,7 @@ router.put('/:boardId', async (ctx, next) => {
 
 router.delete('/:boardId', async (ctx, next) => {
   if (!ctx.params.boardId) {
-    ctx.status = 404;
-    ctx.body = { message: 'Board not found' };
-    return;
+    throw new Exception('Board was not found', 404);
   }
   await boardsService.deleteById(ctx.params.boardId);
   ctx.status = 204;

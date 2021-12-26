@@ -1,5 +1,6 @@
 import Router from 'koa-router';
 import tasksService from './task.service';
+import { Exception } from '../../common/exception';
 
 const router = new Router({
   prefix: '/boards/:boardId/tasks',
@@ -18,9 +19,7 @@ router.get('/:taskId', async (ctx, next) => {
     ctx.params.boardId
   );
   if (!task) {
-    ctx.status = 404;
-    ctx.body = { message: 'Task not found' };
-    return;
+    throw new Exception('Task not found', 404);
   }
   ctx.status = 200;
   ctx.body = task;
@@ -33,11 +32,10 @@ router.post('/', async (ctx, next) => {
     ctx.request.body.order === undefined ||
     !ctx.params.boardId
   ) {
-    ctx.status = 400;
-    ctx.body = {
-      message: 'Title or/and columnId, order field(s) was/were not found',
-    };
-    return;
+    throw new Exception(
+      'Title or/and columnId, order field(s) was/were not found',
+      400
+    );
   }
   const createdTask = await tasksService.create(
     ctx.request.body.title,
@@ -58,9 +56,7 @@ router.put('/:taskId', async (ctx, next) => {
     !ctx.params.boardId ||
     ctx.request.body.order === undefined
   ) {
-    ctx.status = 400;
-    ctx.body = { message: 'TaskId or/and BoardId, order was/were not found' };
-    return;
+    throw new Exception('TaskId or/and BoardId, order was/were not found', 400);
   }
   const updatedTask = await tasksService.updateById(
     ctx.params.taskId,
@@ -72,9 +68,7 @@ router.put('/:taskId', async (ctx, next) => {
     ctx.request.body.columnId
   );
   if (!updatedTask) {
-    ctx.status = 404;
-    ctx.body = { message: 'Task was not found' };
-    return;
+    throw new Exception('Task was not found', 400);
   }
   ctx.body = updatedTask.toResponse();
   ctx.status = 200;
@@ -83,9 +77,7 @@ router.put('/:taskId', async (ctx, next) => {
 
 router.delete('/:taskId', async (ctx, next) => {
   if (!ctx.params.taskId || !ctx.params.boardId) {
-    ctx.status = 404;
-    ctx.body = { message: 'Task not found' };
-    return;
+    throw new Exception('Task was not found', 404);
   }
   await tasksService.deleteById(ctx.params.taskId, ctx.params.boardId);
   ctx.status = 204;

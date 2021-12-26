@@ -8,7 +8,7 @@ const LEVELS: Record<string, string> = {
   '4': 'silly',
 };
 
-const logLevel = LEVELS[process.env.LOG_LEVEL || '6'] || 'silly';
+const logLevel = LEVELS[process.env.LOG_LEVEL || '4'] || 'silly';
 
 export const logger = createLogger({
   level: logLevel,
