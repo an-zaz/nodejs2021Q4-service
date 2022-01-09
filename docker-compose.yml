@@ -6,12 +6,15 @@ services:
 #      image:
       ports:
          - ${PORT}:${PORT}
-#      env_file:
-#         - .env
+      restart: on-failure
+      env_file:
+         - .env
       depends_on:
          - postgres
       environment:
          - PORT=${PORT}
+      volumes:
+         - ./src:/app/rs-node-app/src
    postgres:
       build: ./database/
 #      image:
@@ -19,8 +22,8 @@ services:
          - POSTGRES_USERNAME=${POSTGRES_USERNAME}
          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
          - POSTGRES_DB=${POSTGRES_DB}
-#      env_file:
-#         - .env
+      env_file:
+         - .env
       ports:
          - ${POSTGRES_PORT}:${POSTGRES_PORT}
 #      volumes:
