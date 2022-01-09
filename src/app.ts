@@ -28,6 +28,7 @@ app.use(async (ctx, next) => {
     ctx.body = {
       message: error.message,
     };
+    // logger.http
     logger.info(
       `METHOD: ${method}
        URL: ${url}
@@ -67,7 +68,7 @@ app.use(router.routes());
 
 process.on('uncaughtException', (err, origin) => {
   logger.error(`Caught exception: ${err}\n` + `Exception origin: ${origin}`);
-  setTimeout(() => process.exit(1), 1000);
+  process.nextTick(() => process.exit(1));
 });
 
 process.on('unhandledRejection', (reason, promise) => {
