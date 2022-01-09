@@ -3,7 +3,7 @@ version: '3'
 services:
    node:
       build: .
-#      image:
+      image: anastasiyazazerskaya/rs-nodejs
       ports:
          - ${PORT}:${PORT}
       restart: on-failure
@@ -17,9 +17,11 @@ services:
          - ./src:/app/rs-node-app/src
          - ./error.log:/app/rs-node-app/error.log
          - ./info.log:/app/rs-node-app/info.log
+      networks:
+         - my-net1
    postgres:
       build: ./database/
-#      image:
+      image: anastasiyazazerskaya/rs-postgres
       environment:
          - POSTGRES_USERNAME=${POSTGRES_USERNAME}
          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -30,6 +32,11 @@ services:
          - ${POSTGRES_PORT}:${POSTGRES_PORT}
       volumes:
          - ./database/data:/var/lib/postgresql/data
+      networks:
+         - my-net1
+
+networks:
+   my-net1:
 
 
 
