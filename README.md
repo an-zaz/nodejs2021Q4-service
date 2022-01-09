@@ -99,6 +99,7 @@ Scheme:
   '3': 'debug',
   '4': 'silly',
 ```
+
 ## App Info
 
 Endpoints operate  with in-memory data.
