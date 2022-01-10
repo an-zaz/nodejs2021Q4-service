@@ -5,6 +5,7 @@
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 - **Your Node vershon should be >= 16.0.0**
+- Docker - [Download & Install Docker](https://docs.docker.com/engine/install/)
 
 ## Downloading
 
@@ -98,6 +99,12 @@ Scheme:
   '2': 'info',
   '3': 'debug',
   '4': 'silly',
+```
+
+## Run Docker Container
+To run docker container switch to tesc7-docker-basics branch and run:
+```
+docker compose up
 ```
 
 ## App Info
