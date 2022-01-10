@@ -15,32 +15,11 @@ git clone {repository URL}
 
 Switch to the task branch.
 
-## Setting project for different OS
-
-Create file nodemon.json in root directory with given content:
-```
-{
-  "watch": ["src/**/*.ts"],
-  "execMap": {
-    "ts": "ts-node"
-  }
-}
-```
-Install
-```
- npm install -D ts-node 
-```
-Or in case of problems
-```
-npm install -g ts-node 
-```
-
 ## Installing NPM modules
 
 ```
 npm install
 ```
-
 ## Running application
 
 ```
