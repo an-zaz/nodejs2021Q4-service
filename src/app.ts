@@ -19,79 +19,83 @@ import Task from './resources/tasks/task.model';
 import Board from './resources/boards/board.model';
 
 const app = new Koa();
-const router = new Router();
 
-const connection = await createConnection({
-  type: 'postgres',
-  host: config.POSTGRES_HOST,
-  port: config.POSTGRES_PORT ? +config.POSTGRES_PORT : 6000,
-  username: config.POSTGRES_USERNAME,
-  password: config.POSTGRES_PASSWORD,
-  database: config.POSTGRES_DB,
-  // entities: ['dist/database/entities/**/*.js'],
-  entities: [User, Task, Board],
-  synchronize: true,
-  name: 'postgresConnection',
-});
+const init = async() => {
+  const router = new Router();
 
-app.use(koaBody());
+  await createConnection({
+    type: 'postgres',
+    host: 'postgres',
+    port: config.POSTGRES_PORT ? +config.POSTGRES_PORT : 6000,
+    username: config.POSTGRES_USERNAME,
+    password: config.POSTGRES_PASSWORD,
+    database: config.POSTGRES_DB,
+    // entities: ['dist/database/entities/**/*.js'],
+    entities: [User, Task, Board],
+    synchronize: true,
+    name: 'postgresConnection',
+  });
 
-app.use(async (ctx, next) => {
-  const { url, method, querystring, body } = ctx.request;
-  try {
-    await next();
-  } catch (err) {
-    const error = err as Exception;
-    logger.error('Caught Error during execution:', { message: error.message });
-    ctx.status = error.statusCode || 500;
-    ctx.body = {
-      message: error.message,
-    };
-    // logger.http
-    logger.info(
-      `METHOD: ${method}
+  app.use(koaBody());
+
+  app.use(async (ctx, next) => {
+    const { url, method, querystring, body } = ctx.request;
+    try {
+      await next();
+    } catch (err) {
+      const error = err as Exception;
+      logger.error('Caught Error during execution:', { message: error.message });
+      ctx.status = error.statusCode || 500;
+      ctx.body = {
+        message: error.message,
+      };
+      // logger.http
+      logger.info(
+        `METHOD: ${method}
        URL: ${url}
        QUERY: ${querystring || 'no query'}
        BODY REQUEST: ${JSON.stringify(body)}
        STATUS: ${ctx.status}
        BODY RESPONSE: ${JSON.stringify(ctx.body)} `
-    );
-  }
-});
+      );
+    }
+  });
 
-app.use(async (ctx, next) => {
-  const { url, method, querystring, body } = ctx.request;
-  const bodyReQ = body;
-  await next();
-  finished(ctx.res, () => {
-    const { status, body } = ctx.response;
-    logger.info(
-      `METHOD: ${method} URL: ${url} QUERY: ${querystring || 'no query'}
+  app.use(async (ctx, next) => {
+    const { url, method, querystring, body } = ctx.request;
+    const bodyReQ = body;
+    await next();
+    finished(ctx.res, () => {
+      const { status, body } = ctx.response;
+      logger.info(
+        `METHOD: ${method} URL: ${url} QUERY: ${querystring || 'no query'}
        BODY REQUEST: ${JSON.stringify(bodyReQ)} STATUS: ${status} 
        BODY RESPONSE: ${JSON.stringify(body)} `
-    );
+      );
+    });
   });
-});
 
-const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
+  const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
-router.get(
-  '/doc',
-  koaSwagger({ routePrefix: false, swaggerOptions: { spec: swaggerDocument } })
-);
+  router.get(
+    '/doc',
+    koaSwagger({ routePrefix: false, swaggerOptions: { spec: swaggerDocument } })
+  );
 
-app.use(userRouter.routes());
-app.use(boardRouter.routes());
-app.use(taskRouter.routes());
-app.use(router.routes());
+  app.use(userRouter.routes());
+  app.use(boardRouter.routes());
+  app.use(taskRouter.routes());
+  app.use(router.routes());
 
-process.on('uncaughtException', (err, origin) => {
-  logger.error(`Caught exception: ${err}\n` + `Exception origin: ${origin}`);
-  process.nextTick(() => process.exit(1));
-});
+  process.on('uncaughtException', (err, origin) => {
+    logger.error(`Caught exception: ${err}\n` + `Exception origin: ${origin}`);
+    process.nextTick(() => process.exit(1));
+  });
 
-process.on('unhandledRejection', (reason, promise) => {
-  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
-});
+  process.on('unhandledRejection', (reason, promise) => {
+    logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  });
+}
 
+init();
 export default app;

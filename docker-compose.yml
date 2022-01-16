@@ -23,9 +23,11 @@ services:
       build: ./database/
       image: anastasiyazazerskaya/rs-postgres
       environment:
-         - POSTGRES_USERNAME=${POSTGRES_USERNAME}
+         - POSTGRES_USER=${POSTGRES_USERNAME}
          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
          - POSTGRES_DB=${POSTGRES_DB}
+         - POSTGRES_HOST=${POSTGRES_HOST}
+         - POSTGRES_PORT=${POSTGRES_PORT}
       env_file:
          - .env
       ports:
