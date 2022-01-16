@@ -14,6 +14,9 @@ import { Exception } from './common/exception';
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import config from './common/config';
+import User from './resources/users/user.model';
+import Task from './resources/tasks/task.model';
+import Board from './resources/boards/board.model';
 
 const app = new Koa();
 const router = new Router();
@@ -25,7 +28,8 @@ const connection = await createConnection({
   username: config.POSTGRES_USERNAME,
   password: config.POSTGRES_PASSWORD,
   database: config.POSTGRES_DB,
-  entities: ['dist/database/entities/**/*.js'],
+  // entities: ['dist/database/entities/**/*.js'],
+  entities: [User, Task, Board],
   synchronize: true,
   name: 'postgresConnection',
 });
