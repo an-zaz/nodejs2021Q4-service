@@ -5,6 +5,7 @@
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 - **Your Node vershon should be >= 16.0.0**
+- Docker - [Download & Install Docker](https://docs.docker.com/engine/install/)
 
 ## Downloading
 
@@ -14,43 +15,27 @@ git clone {repository URL}
 
 Switch to the task branch.
 
-## Setting project for different OS
-
-Create file nodemon.json in root directory with given content:
-```
-{
-  "watch": ["src/**/*.ts"],
-  "execMap": {
-    "ts": "ts-node"
-  }
-}
-```
-Install
-```
- npm install -D ts-node 
-```
-Or in case of problems
-```
-npm install -g ts-node 
-```
-
 ## Installing NPM modules
 
 ```
 npm install
 ```
-
 ## Running application
 
 ```
 npm start
 ```
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
+After starting the app on port (7000 as default) you can open
+in your browser OpenAPI documentation by typing http://localhost:7000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
-You can test app behaviour using docker. 
+Or You can test app behaviour using docker. 
+### Run Docker Container
+To run docker container switch to tesc7-docker-basics branch and run:
+```
+docker compose up
+```
 Scenario:
  * `User` (`/users` route)
       * `GET /users` - get all users (remove password from response)

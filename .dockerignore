@@ -1,0 +1,12 @@
+node_modules
+dist
+.github
+.vscode
+test
+*.log
+database/data
+.idea
+.git
+README.md
+.prettierrc
+.gitignore
