@@ -11,9 +11,24 @@ import { finished } from 'stream';
 import process from 'process';
 import { logger } from './common/logger';
 import { Exception } from './common/exception';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+import config from './common/config';
 
 const app = new Koa();
 const router = new Router();
+
+const connection = await createConnection({
+  type: 'postgres',
+  host: config.POSTGRES_HOST,
+  port: config.POSTGRES_PORT ? +config.POSTGRES_PORT : 6000,
+  username: config.POSTGRES_USERNAME,
+  password: config.POSTGRES_PASSWORD,
+  database: config.POSTGRES_DB,
+  entities: ['dist/database/entities/**/*.js'],
+  synchronize: true,
+  name: 'postgresConnection',
+});
 
 app.use(koaBody());
 
