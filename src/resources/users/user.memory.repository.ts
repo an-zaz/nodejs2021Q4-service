@@ -29,7 +29,7 @@ export class UserRepository extends Repository<User> {
     const user = new User();
     user.name = name;
     user.login = login;
-    user.login = login;
+    user.password = password;
     return this.save(user);
   }
   /**

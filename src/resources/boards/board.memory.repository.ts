@@ -1,5 +1,6 @@
 import Board from './board.model';
 import { EntityRepository, Repository } from 'typeorm';
+import { IColumn } from '../../interfaces';
 
 @EntityRepository(Board)
 export class BoardsRepository extends Repository<Board> {
@@ -24,7 +25,7 @@ export class BoardsRepository extends Repository<Board> {
    * @param columns - board's columns (string[])
    * @returns board - promise of a board with generated id and parameters passed (promise of Board instance)
    */
-  createBoard(title: string, columns: Array<string>) {
+  createBoard(title: string, columns: Array<IColumn>) {
     const board = new Board();
     board.title = title;
     board.columns = columns;
@@ -38,7 +39,7 @@ export class BoardsRepository extends Repository<Board> {
    * @returns board - promise of an updated board if it was found (promise of Board instance | null)
    */
 
-  async updateById(id: string, title: string, columns: Array<string>) {
+  async updateById(id: string, title: string, columns: Array<IColumn>) {
     const board = await this.getByID(id);
     if (!board) {
       return null;

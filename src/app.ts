@@ -30,7 +30,6 @@ const init = async() => {
     username: config.POSTGRES_USERNAME,
     password: config.POSTGRES_PASSWORD,
     database: config.POSTGRES_DB,
-    // entities: ['dist/database/entities/**/*.js'],
     entities: [User, Task, Board],
     synchronize: true,
     name: 'postgresConnection',

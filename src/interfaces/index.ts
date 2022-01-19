@@ -20,3 +20,9 @@ export interface IBoard {
   title: string;
   columns: Array<string>;
 }
+
+export interface IColumn {
+  id: string;
+  title: string;
+  order: number;
+}

@@ -15,7 +15,10 @@ class Task {
   order!: string;
   @Column()
   description!: string;
-  @Column()
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
   userId!: string | null;
   @Column()
   boardId!: string;

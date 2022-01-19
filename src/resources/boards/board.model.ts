@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IColumn } from '../../interfaces';
 
 /**
  * Represents a board in memory (in kind of Board[]) - creates a board with generated id
@@ -11,8 +12,13 @@ class Board {
   readonly id!: string;
   @Column()
   title!: string;
-  @Column()
-  columns!: Array<string>;
+  @Column({
+    type: 'jsonb',
+    array: false,
+    default: () => "'[]'",
+    nullable: false,
+  })
+  columns!: Array<IColumn>;
 }
 
 export default Board;

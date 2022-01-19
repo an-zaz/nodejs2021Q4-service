@@ -1,6 +1,7 @@
 import { getConnection } from 'typeorm';
 import { TasksRepository } from '../tasks/task.memory.repository';
 import { BoardsRepository } from './board.memory.repository';
+import { IColumn } from '../../interfaces';
 
 /**
  * Returns all boards
@@ -27,7 +28,7 @@ const getByID = (id: string) => {
  * @param columns - board's columns (string[])
  * @returns board - promise of a board with generated id and parameters passed (promise of Board instance)
  */
-const create = (title: string, columns: Array<string>) => {
+const create = (title: string, columns: Array<IColumn>) => {
   const boardsRepo =
     getConnection('postgresConnection').getCustomRepository(BoardsRepository);
   return boardsRepo.createBoard(title, columns);
@@ -39,7 +40,7 @@ const create = (title: string, columns: Array<string>) => {
  * @param columns - board's columns (string[])
  * @returns board - promise of an updated board if it was found (promise of Board instance | null)
  */
-const updateById = (id: string, title: string, columns: Array<string>) => {
+const updateById = (id: string, title: string, columns: Array<IColumn>) => {
   const boardsRepo =
     getConnection('postgresConnection').getCustomRepository(BoardsRepository);
   return boardsRepo.updateById(id, title, columns);

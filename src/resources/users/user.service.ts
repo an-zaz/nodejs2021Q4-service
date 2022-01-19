@@ -49,7 +49,7 @@ const updateById = (
 ) => {
   const usersRepo =
     getConnection('postgresConnection').getCustomRepository(UserRepository);
-  return usersRepo.createUser(name, login, password);
+  return usersRepo.updateById(id, name, login, password);
 };
 /**
  * Deletes user with a specific id from memory and set its tasks' userId to null
