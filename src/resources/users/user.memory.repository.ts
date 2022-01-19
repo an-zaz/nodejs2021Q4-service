@@ -65,7 +65,7 @@ export class UserRepository extends Repository<User> {
     if (!user) {
       return;
     }
-    this.remove(user);
+    await this.remove(user);
   }
 }
 

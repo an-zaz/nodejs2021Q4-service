@@ -10,17 +10,17 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('boards')
 class Board {
   @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
+  readonly id!: string;
   @Column()
-  title: string;
+  title!: string;
   @Column()
-  columns: Array<string>;
+  columns!: Array<string>;
 
-  constructor({ title, columns = [] }: Omit<IBoard, 'id'>) {
-    this.id = uuidv4();
-    this.title = title;
-    this.columns = columns;
-  }
+  // constructor({ title, columns = [] }: Omit<IBoard, 'id'>) {
+  //   this.id = uuidv4();
+  //   this.title = title;
+  //   this.columns = columns;
+  // }
 }
 
 export default Board;
