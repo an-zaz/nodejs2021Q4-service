@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import Task from '../tasks/task.model';
 
 /**
  * Represents a user in memory (in kind of User[]) - creates a user with id, login, name, password string properties
@@ -15,6 +16,8 @@ class User {
   login!: string;
   @Column()
   password!: string;
+  @OneToMany(() => Task, (task) => task.user)
+  tasks!: Task[]
 }
 
 export default User;

@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { IColumn } from '../../interfaces';
+import Task from '../tasks/task.model';
 
 /**
  * Represents a board in memory (in kind of Board[]) - creates a board with generated id
@@ -18,6 +19,8 @@ class Board {
     nullable: false,
   })
   columns!: Array<IColumn>;
+  @OneToMany(() => Task, (task) => task.board)
+  tasks!: Task[];
 }
 
 export default Board;
