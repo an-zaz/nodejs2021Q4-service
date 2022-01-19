@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-import { IBoard } from '../../interfaces';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 /**
@@ -15,12 +13,6 @@ class Board {
   title!: string;
   @Column()
   columns!: Array<string>;
-
-  // constructor({ title, columns = [] }: Omit<IBoard, 'id'>) {
-  //   this.id = uuidv4();
-  //   this.title = title;
-  //   this.columns = columns;
-  // }
 }
 
 export default Board;
