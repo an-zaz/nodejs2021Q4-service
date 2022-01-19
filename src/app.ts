@@ -20,7 +20,7 @@ import Board from './resources/boards/board.model';
 
 const app = new Koa();
 
-const init = async() => {
+const init = async () => {
   const router = new Router();
 
   await createConnection({
@@ -32,7 +32,12 @@ const init = async() => {
     database: config.POSTGRES_DB,
     entities: [User, Task, Board],
     synchronize: true,
+    // migrationsRun: true,
     name: 'postgresConnection',
+    migrations: ['migration/*.js'],
+    cli: {
+      migrationsDir: 'migration',
+    },
   });
 
   app.use(koaBody());
@@ -43,7 +48,9 @@ const init = async() => {
       await next();
     } catch (err) {
       const error = err as Exception;
-      logger.error('Caught Error during execution:', { message: error.message });
+      logger.error('Caught Error during execution:', {
+        message: error.message,
+      });
       ctx.status = error.statusCode || 500;
       ctx.body = {
         message: error.message,
@@ -78,7 +85,10 @@ const init = async() => {
 
   router.get(
     '/doc',
-    koaSwagger({ routePrefix: false, swaggerOptions: { spec: swaggerDocument } })
+    koaSwagger({
+      routePrefix: false,
+      swaggerOptions: { spec: swaggerDocument },
+    })
   );
 
   app.use(userRouter.routes());
@@ -94,7 +104,7 @@ const init = async() => {
   process.on('unhandledRejection', (reason, promise) => {
     logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
   });
-}
+};
 
 init();
 export default app;

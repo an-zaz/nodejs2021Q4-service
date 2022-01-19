@@ -12,7 +12,7 @@ class Task {
   @Column()
   title!: string;
   @Column()
-  order!: string;
+  order!: number;
   @Column()
   description!: string;
   @Column({
@@ -22,7 +22,7 @@ class Task {
   userId!: string | null;
   @Column()
   boardId!: string;
-  @Column()
+  @Column({ nullable: true })
   columnId!: string;
 }
 

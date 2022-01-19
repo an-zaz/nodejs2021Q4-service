@@ -1,5 +1,5 @@
-import { TasksRepository } from '../tasks/task.memory.repository';
-import UserRepository from './user.memory.repository';
+import { TasksRepository } from '../tasks/task.repository';
+import UserRepository from './user.repository';
 import { getConnection } from 'typeorm';
 
 /**

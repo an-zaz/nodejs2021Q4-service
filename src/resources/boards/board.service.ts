@@ -1,6 +1,6 @@
 import { getConnection } from 'typeorm';
-import { TasksRepository } from '../tasks/task.memory.repository';
-import { BoardsRepository } from './board.memory.repository';
+import { TasksRepository } from '../tasks/task.repository';
+import { BoardsRepository } from './board.repository';
 import { IColumn } from '../../interfaces';
 
 /**

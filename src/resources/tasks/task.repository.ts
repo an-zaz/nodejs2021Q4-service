@@ -19,7 +19,7 @@ export class TasksRepository extends Repository<Task> {
    */
 
   getByIDAndBoardID(taskId: string, boardId: string) {
-    return this.findOne({ where: [{ taskId: taskId, boardId: boardId }] });
+    return this.findOne({ where: { id: taskId, boardId: boardId } });
   }
 
   /**
@@ -34,7 +34,7 @@ export class TasksRepository extends Repository<Task> {
    */
   createTask(
     title: string,
-    order: string,
+    order: number,
     description: string,
     userId: string,
     boardId: string,
@@ -64,7 +64,7 @@ export class TasksRepository extends Repository<Task> {
   async updateById(
     taskId: string,
     title: string,
-    order: string,
+    order: number,
     description: string,
     userId: string,
     boardId: string,

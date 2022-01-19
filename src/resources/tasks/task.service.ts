@@ -1,4 +1,4 @@
-import { TasksRepository } from './task.memory.repository';
+import { TasksRepository } from './task.repository';
 import { getConnection } from 'typeorm';
 
 /**
@@ -34,7 +34,7 @@ const getByIDAndBoardID = (taskId: string, boardId: string) => {
  */
 const create = (
   title: string,
-  order: string,
+  order: number,
   description: string,
   userId: string,
   boardId: string,
@@ -65,7 +65,7 @@ const create = (
 const updateById = (
   taskId: string,
   title: string,
-  order: string,
+  order: number,
   description: string,
   userId: string,
   boardId: string,

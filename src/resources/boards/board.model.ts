@@ -15,7 +15,6 @@ class Board {
   @Column({
     type: 'jsonb',
     array: false,
-    default: () => "'[]'",
     nullable: false,
   })
   columns!: Array<IColumn>;
