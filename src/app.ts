@@ -31,7 +31,7 @@ const init = async () => {
     password: config.POSTGRES_PASSWORD,
     database: config.POSTGRES_DB,
     entities: [User, Task, Board],
-    synchronize: true,
+    // synchronize: true,
     // migrationsRun: true,
     name: 'postgresConnection',
     migrations: ['migration/*.js'],
