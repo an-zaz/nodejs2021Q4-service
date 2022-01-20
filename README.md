@@ -36,6 +36,16 @@ To run docker container switch to tesc7-docker-basics branch and run:
 ```
 docker compose up
 ```
+**If the nodeJs container is down, please change something in src/app.ts file to make it reload.  (for example add some enters)** 
+
+### Run Migrations
+
+```
+npm run typeorm
+```
+
+## Testing
+
 Scenario:
  * `User` (`/users` route)
       * `GET /users` - get all users (remove password from response)
@@ -57,8 +67,6 @@ Scenario:
       * `DELETE boards/:boardId/tasks/:taskId` - delete task
      
 or run **17** tests:
-
-## Testing
 
 After application running open new terminal and enter:
 
