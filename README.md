@@ -32,7 +32,7 @@ For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
 Or You can test app behaviour using docker. 
 ### Run Docker Container
-To run docker container switch to tesc7-docker-basics branch and run:
+To run docker container switch to task8-postgreSQL-Typeorm branch and run:
 ```
 docker compose up
 ```
