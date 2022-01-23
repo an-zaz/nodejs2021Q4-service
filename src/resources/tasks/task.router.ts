@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import tasksService from './task.service';
 import { Exception } from '../../common/exception';
 import { toResponse } from './tasks.utils';
+import checkToken from "../../common/checkToken";
 
 const router = new Router({
   prefix: '/boards/:boardId/tasks',

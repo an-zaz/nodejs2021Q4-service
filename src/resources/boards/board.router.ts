@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import boardsService from './board.service';
 import { Exception } from '../../common/exception';
+import checkToken from "../../common/checkToken";
 
 const router = new Router({
   prefix: '/boards',

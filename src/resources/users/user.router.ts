@@ -2,6 +2,7 @@ import Router from 'koa-router';
 import usersService from './user.service';
 import { Exception } from '../../common/exception';
 import { toResponse } from './user.utils';
+import checkToken from "../../common/checkToken";
 
 const router = new Router({
   prefix: '/users',
