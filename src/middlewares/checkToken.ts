@@ -1,5 +1,5 @@
-import config from "./config";
-import {Exception} from "./exception";
+import config from "../common/config";
+import {Exception} from "../common/exception";
 import jwt from "jsonwebtoken";
 import Koa, {Next} from "koa";
 
@@ -21,7 +21,7 @@ const checkToken = async (ctx: Koa.Context, next: Next) => {
         throw new Exception('Unauthorized',401);
     } else {
         try {
-            const claim = jwt.verify(token, config.JWT_SECRET_KEY as string)
+            jwt.verify(token, config.JWT_SECRET_KEY as string)
         } catch (e) {
             throw new Exception('Unauthorized',401);
         }

@@ -18,7 +18,7 @@ import User from './resources/users/user.model';
 import Task from './resources/tasks/task.model';
 import Board from './resources/boards/board.model';
 import authenticationRouter from './resources/authentication/authentication.router';
-import checkToken from "./common/checkToken";
+import checkToken from "./middlewares/checkToken";
 
 const app = new Koa();
 
@@ -92,6 +92,7 @@ const init = async () => {
       swaggerOptions: { spec: swaggerDocument },
     })
   );
+
 
   app.use(checkToken);
   app.use(userRouter.routes());

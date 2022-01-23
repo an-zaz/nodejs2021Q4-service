@@ -1,6 +1,7 @@
 import { TasksRepository } from '../tasks/task.repository';
 import UserRepository from './user.repository';
 import { getConnection } from 'typeorm';
+import {hashPassword} from "../../common/hashHelpers";
 
 /**
  * Returns all users
@@ -28,10 +29,11 @@ const getByID = (id: string) => {
  * @param password - user's password (string)
  * @returns user - promise of a user with generated id and parameters passed (promise of User instance)
  */
-const create = (name: string, login: string, password: string) => {
+const create = async (name: string, login: string, password: string) => {
   const usersRepo =
     getConnection('postgresConnection').getCustomRepository(UserRepository);
-  return usersRepo.createUser(name, login, password);
+  const hashedPassword = await hashPassword(password);
+  return usersRepo.createUser(name, login, hashedPassword);
 };
 /**
  * Find user by id and updates it by other parameters passed
