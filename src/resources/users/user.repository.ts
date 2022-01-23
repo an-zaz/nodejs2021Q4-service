@@ -19,6 +19,15 @@ export class UserRepository extends Repository<User> {
     return this.findOne({ where: { id } });
   }
   /**
+   * Returns user with a specific login and password
+   * @param login - user's login (string)
+   * @param password - user's password (string)
+   * @returns user - promise of a user with parameters passed if found in memory (promise of User instance | undefined)
+   */
+  getByLogin(login:string, password: string) {
+    return this.findOne({ where: { login, password } });
+  }
+  /**
    * Creates user with a name, login, password passed add it to memory
    * @param name - user's name (string)
    * @param login - user's login (string)
