@@ -93,7 +93,6 @@ const init = async () => {
     })
   );
 
-
   app.use(checkToken);
   app.use(userRouter.routes());
   app.use(boardRouter.routes());

@@ -7,7 +7,9 @@ const checkToken = async (ctx: Koa.Context, next: Next) => {
     switch (ctx.request.path) {
         case '/doc':
         case '/login':
+        case '/':
             await next();
+            return;
     }
 
     const { authorization } = ctx.headers;
@@ -25,7 +27,6 @@ const checkToken = async (ctx: Koa.Context, next: Next) => {
         } catch (e) {
             throw new Exception('Unauthorized',401);
         }
-        await next();
     }
 
     await next();

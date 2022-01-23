@@ -14,6 +14,9 @@ export class initialization1642625068540 implements MigrationInterface {
             )
         `);
         await queryRunner.query(`
+            INSERT INTO users (name, login,password) values('admin', 'admin', '$2a$10$NP.5Qa2IHNjqpyI.D9wuMegnQyLgv83xS7q6xoKiMGbVOdDstWKR6');
+        `);
+        await queryRunner.query(`
             CREATE TABLE "boards" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                 "title" character varying NOT NULL,

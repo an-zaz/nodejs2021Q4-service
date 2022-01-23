@@ -12,7 +12,7 @@ router.post('/', async (ctx, next) => {
     if (!token) {
         throw new Exception('Forbidden', 403);
     }
-    ctx.body = token;
+    ctx.body = { token };
     ctx.status = 200;
     await next();
 });
