@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import usersService from './user.service';
 import { Exception } from '../../common/exception';
+import { toResponse } from './user.utils';
 
 const router = new Router({
   prefix: '/users',
@@ -8,7 +9,7 @@ const router = new Router({
 
 router.get('/', async (ctx, next) => {
   const users = await usersService.getAll();
-  ctx.body = users.map((user) => user.toResponse());
+  ctx.body = users.map((user) => toResponse(user));
   ctx.status = 200;
   await next();
 });
@@ -32,7 +33,7 @@ router.post('/', async (ctx, next) => {
     ctx.request.body.login,
     ctx.request.body.password
   );
-  ctx.body = createdUser.toResponse();
+  ctx.body = toResponse(createdUser);
   ctx.status = 201;
   await next();
 });
@@ -50,7 +51,7 @@ router.put('/:userId', async (ctx, next) => {
   if (!updatedUser) {
     throw new Exception('User was not found', 404);
   }
-  ctx.body = updatedUser.toResponse();
+  ctx.body = toResponse(updatedUser);
   ctx.status = 200;
   await next();
 });

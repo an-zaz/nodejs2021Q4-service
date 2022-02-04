@@ -1,6 +1,7 @@
 import Router from 'koa-router';
 import tasksService from './task.service';
 import { Exception } from '../../common/exception';
+import { toResponse } from './tasks.utils';
 
 const router = new Router({
   prefix: '/boards/:boardId/tasks',
@@ -8,7 +9,7 @@ const router = new Router({
 
 router.get('/', async (ctx, next) => {
   const tasks = await tasksService.getAll();
-  ctx.body = tasks.map((task) => task.toResponse());
+  ctx.body = tasks.map((task) => toResponse(task));
   ctx.status = 200;
   await next();
 });
@@ -45,7 +46,7 @@ router.post('/', async (ctx, next) => {
     ctx.params.boardId,
     ctx.request.body.columnId
   );
-  ctx.body = createdTask.toResponse();
+  ctx.body = toResponse(createdTask);
   ctx.status = 201;
   await next();
 });
@@ -70,7 +71,7 @@ router.put('/:taskId', async (ctx, next) => {
   if (!updatedTask) {
     throw new Exception('Task was not found', 400);
   }
-  ctx.body = updatedTask.toResponse();
+  ctx.body = toResponse(updatedTask);
   ctx.status = 200;
   await next();
 });

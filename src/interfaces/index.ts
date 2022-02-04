@@ -8,7 +8,7 @@ export interface IUser {
 export interface ITask {
   id: string;
   title: string;
-  order: string;
+  order: number;
   description: string;
   userId: string | null;
   boardId: string;
@@ -18,5 +18,11 @@ export interface ITask {
 export interface IBoard {
   id: string;
   title: string;
-  columns: Array<string>;
+  columns: Array<IColumn>;
+}
+
+export interface IColumn {
+  id: string;
+  title: string;
+  order: number;
 }
