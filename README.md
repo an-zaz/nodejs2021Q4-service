@@ -18,6 +18,13 @@ Switch to the task branch:
 git checkout task9-authentification-JWT
 ```
 
+Switch to the app folder.
+
+```
+cd .\nodejs2021Q4-service\
+```
+
+
 ## Installing NPM modules
 
 ```
@@ -42,25 +49,6 @@ npm run typeorm
 ```
 npm test:auth
 ```
-
-## Logging
-
-When specifying a logging level, records of this level and all levels with a higher priority will be logged. For example, by specifying level 2, you will collect all messages of levels 0, 1, and 2. **This functionality works for the console** (not for log files),  where the server is running
-Scheme:
-```
-  '0': 'error',
-  '1': 'warn',
-  '2': 'info',
-  '3': 'debug',
-  '4': 'silly',
-```
-
-## App Info
-
-Endpoints operate  with in-memory data.
-Service should listen on PORT 7000.
-To generate all entities ids  uuid package is used.
-
 
 ## Development
 
