@@ -17,6 +17,8 @@ import config from './common/config';
 import User from './resources/users/user.model';
 import Task from './resources/tasks/task.model';
 import Board from './resources/boards/board.model';
+import authenticationRouter from './resources/authentication/authentication.router';
+import checkToken from "./middlewares/checkToken";
 
 const app = new Koa();
 
@@ -91,9 +93,11 @@ const init = async () => {
     })
   );
 
+  app.use(checkToken);
   app.use(userRouter.routes());
   app.use(boardRouter.routes());
   app.use(taskRouter.routes());
+  app.use(authenticationRouter.routes());
   app.use(router.routes());
 
   process.on('uncaughtException', (err, origin) => {

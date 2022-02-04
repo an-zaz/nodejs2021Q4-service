@@ -17,7 +17,7 @@ class User {
   @Column()
   password!: string;
   @OneToMany(() => Task, (task) => task.user)
-  tasks!: Task[]
+  tasks!: Task[];
 }
 
 export default User;

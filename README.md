@@ -13,10 +13,9 @@
 git clone git@github.com:an-zaz/nodejs2021Q4-service.git
 ```
 
-Switch to the task branch.
-
+Switch to the task branch:
 ```
-git checkout task8-postgreSQL-Typeorm
+git checkout task9-authentification-JWT
 ```
 
 Switch to the app folder.
@@ -47,40 +46,8 @@ npm run typeorm
 
 ## Testing
 
-Scenario:
- * `User` (`/users` route)
-      * `GET /users` - get all users (remove password from response)
-      * `GET /users/:userId` - get the user by id (ex. “/users/123”) (remove password from response)
-      * `POST /users` - create user
-      * `PUT /users/:userId` - update user
-      * `DELETE /users/:userId` - delete user
-    * `Board` (`/boards` route)
-      * `GET /boards` - get all boards
-      * `GET /boards/:boardId` - get the board by id
-      * `POST /boards` - create board
-      * `PUT /boards/:boardId` - update board
-      * `DELETE /boards/:boardId` - delete board
-    * `Task` (`boards/:boardId/tasks` route)
-      * `GET boards/:boardId/tasks` - get all tasks
-      * `GET boards/:boardId/tasks/:taskId` - get the task by id
-      * `POST boards/:boardId/tasks` - create task
-      * `PUT boards/:boardId/tasks/:taskId` - update task
-      * `DELETE boards/:boardId/tasks/:taskId` - delete task
-     
-or run **17** tests:
-
-After application running open new terminal and enter:
-
-To run all tests without authorization
-
 ```
-npm test
-```
-
-To run only one of all test suites (users, boards or tasks)
-
-```
-npm test <suite name>
+npm test:auth
 ```
 
 ## Development
