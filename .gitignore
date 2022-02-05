@@ -1,0 +1,6 @@
+**/node_modules
+**/.idea
+**/dist
+**/error.log
+**/info.log
+**/database/data
