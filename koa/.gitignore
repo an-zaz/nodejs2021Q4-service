@@ -1,0 +1,6 @@
+../node_modules
+.idea
+dist
+koa/error.log
+koa/info.log
+koa/database/data
