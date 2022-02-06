@@ -12,7 +12,7 @@ import { Board } from './boards/entities/board.entity';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './all-exception.filter';
-
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -20,24 +20,32 @@ import { AllExceptionsFilter } from './all-exception.filter';
       envFilePath: '../.env'
     }),
     TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'postgres',
-    port: process.env.POSTGRES_PORT ? +process.env.POSTGRES_PORT : 6000,
-    username: process.env.POSTGRES_USERNAME,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DB,
-    entities: [User, Task, Board],
-    synchronize: false,
-    migrations: ['migration/*.js'],
-    cli: {
-      migrationsDir: 'migration',
-    },
-  }), UsersModule, BoardsModule, TasksModule, FilesModule],
+      type: 'postgres',
+      host: 'postgres',
+      port: process.env.POSTGRES_PORT ? +process.env.POSTGRES_PORT : 6000,
+      username: process.env.POSTGRES_USERNAME,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      entities: [User, Task, Board],
+      synchronize: false,
+      migrations: ['migration/*.js'],
+      cli: {
+        migrationsDir: 'migration'
+      }
+    }), UsersModule, BoardsModule, TasksModule, FilesModule,
+    LoggerModule.forRoot({
+        pinoHttp: {
+          genReqId: () => Math.random(),
+          prettyPrint: true,
+        }
+      }
+    )],
   controllers: [AppController],
   providers: [AppService,
     {
-    provide: APP_FILTER,
-    useClass: AllExceptionsFilter,
-}, ],
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter
+    }]
 })
-export class AppModule {}
+export class AppModule {
+}
