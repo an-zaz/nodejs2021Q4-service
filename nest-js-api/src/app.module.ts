@@ -10,6 +10,8 @@ import { User } from './users/entities/user.entity';
 import { Task } from './tasks/entities/task.entity';
 import { Board } from './boards/entities/board.entity';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './all-exception.filter';
 
 
 @Module({
@@ -32,6 +34,10 @@ import { ConfigModule } from '@nestjs/config';
     },
   }), UsersModule, BoardsModule, TasksModule, FilesModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+    provide: APP_FILTER,
+    useClass: AllExceptionsFilter,
+}, ],
 })
 export class AppModule {}

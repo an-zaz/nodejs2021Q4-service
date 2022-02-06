@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, HttpException, Put } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
@@ -24,14 +24,15 @@ export class BoardsController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  findOne(@Param('id') id: string) {
-    if (!id) {
+  async findOne(@Param('id') id: string) {
+    const board = await this.boardsService.findOne(id);
+    if (!board) {
       throw new HttpException('Board was not found', HttpStatus.NOT_FOUND);
     }
     return this.boardsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @HttpCode(HttpStatus.OK)
   async update(@Param('id') id: string, @Body() updateBoardDto: UpdateBoardDto) {
     const updatedBoard = await this.boardsService.update(id, updateBoardDto);
@@ -46,8 +47,9 @@ export class BoardsController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id') id: string) {
-    if (!id) {
+  async remove(@Param('id') id: string) {
+    const board = await this.boardsService.findOne(id);
+    if (!board) {
       throw new HttpException('Board was not found', HttpStatus.NOT_FOUND);
     }
     return this.boardsService.remove(id);

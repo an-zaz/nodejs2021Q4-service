@@ -1,4 +1,3 @@
-
 import { EntityRepository, Repository } from 'typeorm';
 import { IColumn } from './dto/create-board.dto';
 import { Board } from './entities/board.entity';

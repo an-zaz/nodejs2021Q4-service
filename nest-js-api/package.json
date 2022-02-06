@@ -19,6 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:no-auth": "cross-env DEBUG=rs:* jest --testMatch \\\"<rootDir>/test/e2e/test/*.test.js\\\" --noStackTrace --runInBand",
+    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
     "typeorm": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run",
     "migarion:generate": "npm run typeorm migration:generate -- -n migrationNameHere",
     "migration:run": "npm run typeorm -- migration:run",
@@ -48,6 +50,9 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "chai": "^4.3.6",
+    "cross-env": "^7.0.3",
+    "dirty-chai": "^2.0.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -62,20 +67,9 @@
     "typescript": "^4.3.5"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ]
   }
 }

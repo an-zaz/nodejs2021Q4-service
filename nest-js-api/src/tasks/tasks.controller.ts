@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, HttpException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  HttpException,
+  Put
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -41,7 +53,7 @@ export class TasksController {
     return task;
   }
 
-  @Patch(':taskId')
+  @Put(':taskId')
   @HttpCode(HttpStatus.OK)
   async update(@Param('boardId') boardId: string, @Param('taskId') taskId: string, @Body() updateTaskDto: UpdateTaskDto) {
     if (
@@ -63,7 +75,8 @@ export class TasksController {
   @Delete(':taskId')
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('boardId') boardId: string, @Param('taskId') taskId: string) {
-    if (!taskId || !boardId) {
+    const board = await this.tasksService.findOne(taskId, boardId);
+    if (!board) {
       throw new HttpException('Task was not found',  HttpStatus.NOT_FOUND);
     }
     await this.tasksService.removeOne(taskId, boardId);
