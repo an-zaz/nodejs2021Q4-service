@@ -3,12 +3,25 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { toResponse } from './users.utils';
+import { LoginUserDto } from './dto/login-user.dto';
+import { SkipJwt } from '../common/decorators/skipJWT';
 
-@Controller('users')
+@Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
+  @SkipJwt()
+  @Post('/login')
+  @HttpCode(HttpStatus.OK)
+  async login(@Body() { login, password }: LoginUserDto) {
+    const token = await this.usersService.login(login, password);
+    if (!token) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+    return token;
+  }
+
+  @Post('/users')
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() createUserDto: CreateUserDto) {
     if (!createUserDto.name) {
@@ -18,14 +31,14 @@ export class UsersController {
     return toResponse(createdUser);
   }
 
-  @Get()
+  @Get('/users')
   @HttpCode(HttpStatus.OK)
   async findAll() {
     const users = await this.usersService.findAll();
     return users.map((user) => toResponse(user));
   }
 
-  @Get(':id')
+  @Get('/users/:id')
   @HttpCode(HttpStatus.OK)
   async findOne(@Param('id') id: string) {
     const user = await this.usersService.findOne(id);
@@ -35,7 +48,7 @@ export class UsersController {
     return user;
   }
 
-  @Put(':id')
+  @Put('/users/:id')
   @HttpCode(HttpStatus.OK)
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     if (!updateUserDto.name) {
@@ -48,7 +61,7 @@ export class UsersController {
    return toResponse(updatedUser);
   }
 
-  @Delete(':id')
+  @Delete('/users/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('id') id: string) {
     const user = await this.usersService.findOne(id);

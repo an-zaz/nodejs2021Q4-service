@@ -11,6 +11,10 @@ export class UserRepository extends Repository<User> {
     return this.findOne({ where: { id } });
   }
 
+  getByLogin(login:string) {
+    return this.findOne({ where: { login } });
+  }
+
   createUser(name: string, login: string, password: string) {
     const user = new User();
     user.name = name;

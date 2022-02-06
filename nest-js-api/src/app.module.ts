@@ -10,9 +10,10 @@ import { User } from './users/entities/user.entity';
 import { Task } from './tasks/entities/task.entity';
 import { Board } from './boards/entities/board.entity';
 import { ConfigModule } from '@nestjs/config';
-import { APP_FILTER } from '@nestjs/core';
-import { AllExceptionsFilter } from './all-exception.filter';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { AllExceptionsFilter } from './common/exceptions/all-exception.filter';
 import { LoggerModule } from 'nestjs-pino';
+import { AuthGuard } from './common/guards/auth.guard';
 
 @Module({
   imports: [
@@ -39,12 +40,17 @@ import { LoggerModule } from 'nestjs-pino';
           prettyPrint: true,
         }
       }
-    )],
+    )
+  ],
   controllers: [AppController],
   providers: [AppService,
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     }]
 })
 export class AppModule {
