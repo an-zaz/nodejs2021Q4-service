@@ -53,5 +53,14 @@ import { AuthGuard } from './common/guards/auth.guard';
       useClass: AuthGuard,
     }]
 })
-export class AppModule {
-}
+export class AppModule {}
+
+process.on('uncaughtException', (err, origin) => {
+  console.log(`Caught exception: ${err}\n` + `Exception origin: ${origin}`);
+  process.nextTick(() => process.exit(1));
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
